@@ -1,31 +1,24 @@
 package com.sumin.news.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.sumin.news.R
-import com.sumin.news.viewmodel.NewsViewModel
+import com.sumin.news.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private val newsViewModel: NewsViewModel by viewModels()
+
+    private var _binding: ActivityMainBinding? = null
+    private val binding: ActivityMainBinding get() = requireNotNull(_binding)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        newsLoadingTest()
-        newsViewModel.searchNews()
+
     }
 
-    private fun newsLoadingTest() {
-        newsViewModel.newsList.observe(this){
-            it?.forEach { news ->
-                Log.d("TEST", news.title)
-            }
-
-        }
-    }
 }
